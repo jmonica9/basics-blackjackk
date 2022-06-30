@@ -212,10 +212,7 @@ var main = function (input) {
 
     if (playerGotBlackjack == true || dealerGotBlackjack == true) {
       if (playerGotBlackjack == true && dealerGotBlackjack == true) {
-        instructions.innerText = `Hello ${playerName}.  It's a blackjack tie!`;
-
         gameMode = RESTART;
-
         return (
           displayCardsnResults(playerCard, dealerCard) +
           ` It's a blackjack tie! Press Submit to play again`
@@ -223,7 +220,6 @@ var main = function (input) {
       }
 
       if (playerGotBlackjack == true && dealerGotBlackjack == false) {
-        instructions.innerText = `Hello ${playerName}.  u win by blackjack!`;
         gameMode = RESTART;
         return (
           displayCardsnResults(playerCard, dealerCard) +
@@ -296,6 +292,7 @@ var main = function (input) {
         totalplayerScore == totaldealerScore ||
         (totalplayerScore > 21 && totaldealerScore > 21)
       ) {
+        gameMode = RESTART;
         return `It's a tie! <br>${displayCardsnResults(
           playerCard,
           dealerCard
@@ -306,15 +303,16 @@ var main = function (input) {
         (totalplayerScore > totaldealerScore && totalplayerScore <= 21) ||
         (totaldealerScore > 21 && totalplayerScore <= 21)
       ) {
+        gameMode = RESTART;
         return `Player ${playerName} wins!<br> ${displayCardsnResults(
           playerCard,
           dealerCard
         )} <br> Press Submit to play again!`;
-      } else
-        return `Dealer wins!<br> ${displayCardsnResults(
-          playerCard,
-          dealerCard
-        )} <br> Press Submit to play again!`;
+      } else gameMode = RESTART;
+      return `Dealer wins!<br> ${displayCardsnResults(
+        playerCard,
+        dealerCard
+      )} <br> Press Submit to play again!`;
     }
   }
 
@@ -323,11 +321,11 @@ var main = function (input) {
     button.removeAttribute("disabled");
     hitButton.setAttribute("disabled", "disabled");
     standButton.setAttribute("disabled", "disabled");
+    gameMode = RESTART;
     return `${displayCardsnResults(
       playerCard,
       dealerCard
     )} <br> Press Submit to play again!`;
-    gameMode = RESTART;
   }
   //*********************************** */
 
